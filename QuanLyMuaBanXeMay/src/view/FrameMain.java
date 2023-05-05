@@ -33,13 +33,14 @@ public class FrameMain extends JFrame {
 	public FrameDangNhap frameDangNhap;
 	public JPanel panel_chucNang;
 	public JTabbedPane tabbedPane_chucNang;
+	private FrameNhanVien frameNhanVien;
 	
-	public FrameMain() {
+	public FrameMain() throws Exception {
 		getContentPane().setBackground(SystemColor.window);
 		this.init();
 	}
 
-	private void init() {
+	private void init() throws Exception {
 		this.setTitle("Quản lý mua bán xe máy - Nhóm 1");
 		this.setSize(1000, 600);
 		this.setLocationRelativeTo(null);
@@ -126,7 +127,7 @@ public class FrameMain extends JFrame {
 		FrameThongKe frameThongKe = new FrameThongKe();
 		frameThongKe.setBackground(SystemColor.window);
 		tabbedPane_chucNang.add("Thống kê", frameThongKe);
-		FrameNhanVien frameNhanVien = new FrameNhanVien();
+		frameNhanVien = new FrameNhanVien();
 		frameNhanVien.setBackground(SystemColor.window);
 		tabbedPane_chucNang.add("Nhân viên", frameNhanVien);
 		FrameKhachHang frameKhachHang = new FrameKhachHang();
@@ -145,15 +146,22 @@ public class FrameMain extends JFrame {
 		btn_donHang.setFont(new Font("Arial", Font.BOLD, 12));
 		btn_donHang.setBounds(10, 182, 155, 49);
 		getContentPane().add(btn_donHang);
+		
+		//LoadData
+		loadData();
 		this.setVisible(true);
 		
+	}
+
+	public void loadData() {
+		frameNhanVien.loadData();
 	}
 
 	public void chuyenTab(String cm) {
 		tabbedPane_chucNang.setSelectedIndex(tabbedPane_chucNang.indexOfTab(cm));
 	}
 
-	public void thucHienDangXuat() {
+	public void thucHienDangXuat() throws Exception {
 		JOptionPane.showMessageDialog(this, "Đã đăng xuất");
 		frameDangNhap = new FrameDangNhap();
 		this.setVisible(false);

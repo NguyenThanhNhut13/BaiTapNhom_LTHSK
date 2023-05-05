@@ -7,7 +7,7 @@ import view.FrameDangNhap;
 import view.FrameMain;
 
 public class test {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 //		new FrameDangNhap();
 //		try {
 //			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");

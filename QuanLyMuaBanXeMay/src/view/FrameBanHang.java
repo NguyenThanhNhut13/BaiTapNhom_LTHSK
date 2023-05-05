@@ -186,4 +186,6 @@ public class FrameBanHang extends JPanel {
 		btn_themSanPham.setFont(new Font("Arial", Font.PLAIN, 11));
 
 	}
+	
+	
 }

@@ -25,7 +25,7 @@ public class FrameDangNhap extends JFrame {
 	public FrameMain frameMain;
 	private JPasswordField passwordField_matKhau;
 
-	public FrameDangNhap() {
+	public FrameDangNhap() throws Exception {
 		getContentPane().setFont(new Font("Arial", Font.BOLD, 11));
 		frameMain = new FrameMain();
 		this.init();
