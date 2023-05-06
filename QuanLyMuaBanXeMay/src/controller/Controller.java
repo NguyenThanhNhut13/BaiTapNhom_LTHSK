@@ -9,15 +9,17 @@ import view.FrameXeMay;
 import view.FrameChiTietDonHang;
 import view.FrameDangNhap;
 import view.FrameDonHang;
+import view.FrameKhachHang;
 import view.FrameMain;
 import view.FrameNhanVien;
 
-public class Controller implements ActionListener, MouseListener {
+public class Controller implements ActionListener {
 	private FrameMain frameMain;
 	private FrameDangNhap frameDangNhap;
 	private FrameDonHang frameDonHang;
 	private FrameChiTietDonHang frameChiTietDonHang;
 	private FrameNhanVien frameNhanVien;
+	private FrameKhachHang frameKhachHang;
 
 	public Controller(FrameMain frameMain) {
 		this.frameMain = frameMain;
@@ -37,6 +39,10 @@ public class Controller implements ActionListener, MouseListener {
 
 	public Controller(FrameNhanVien frameNhanVien) {
 		this.frameNhanVien = frameNhanVien;
+	}
+
+	public Controller(FrameKhachHang frameKhachHang) {
+		this.frameKhachHang = frameKhachHang;
 	}
 
 	@Override
@@ -65,61 +71,16 @@ public class Controller implements ActionListener, MouseListener {
 		} else if (cm.equals("Đăng Nhập")) {
 			frameDangNhap.kiemTraDangNhap();
 		} else if (cm.equals("Thoát")) {
-			if(e.getSource() == frameChiTietDonHang.getBtn_thoat()) {
+			if (e.getSource() == frameChiTietDonHang.getBtn_thoat()) {
 				frameChiTietDonHang.thucHienThoat();
-			}else {
+			} else {
 				frameDangNhap.thucHienThoat();
 			}
 		} else if (cm.equals("Xem chi tiết")) {
 			frameDonHang.thucHienXemChiTiet();
-		}else if (cm.equals("Thêm")) {
-			if(e.getSource() == frameNhanVien.getBtn_themNhanVien()) {
-				frameNhanVien.thucHienThem();
-			}
-		}else if (cm.equals("Xóa")) {
-			if(e.getSource() == frameNhanVien.getBtn_xoaNhanVien()) {
-				frameNhanVien.thucHienXoa();
-			}
-		}else if (cm.equals("Cập Nhật")) {
-			if(e.getSource() == frameNhanVien.getBtn_capNhatNhanVien()) {
-				frameNhanVien.thucHienCapNhat();
-			}
-		}else if (cm.equals("Xóa trắng")) {
-			frameDonHang.thucHienXemChiTiet();
-		}else if (cm.equals("Tìm")) {
-			frameDonHang.thucHienXemChiTiet();
-		}
+		} 
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == frameNhanVien.getTable_nhanVien()) {
-			frameNhanVien.thucHienMouseClick();
-		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

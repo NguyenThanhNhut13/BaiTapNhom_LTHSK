@@ -25,19 +25,21 @@ public class StaffDAO implements InterfaceDAO<Staff> {
 		try {
 			Connection c = ConnectDatabase.getConnection();
 			
-			String sql = "INSERT INTO Staff VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Staff VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 
 			pst.setString(1, t.getStaffID());
-			pst.setString(2, t.getStaffName());
-			pst.setString(3, (t.isGender()) ? "Nam" : "Nữ");
-			pst.setString(4, t.getDateOfBirth() + "");
-			pst.setString(5, t.getAddress());
-			pst.setString(6, t.getEmail());
-			pst.setDouble(7, t.getSalary());
-			pst.setString(8, t.getPhone());
-			pst.setString(9, t.getPosition());
-			pst.setString(10, t.getNote());
+			pst.setString(2, t.getStaffID());
+			pst.setString(3, "123456789");
+			pst.setString(4, t.getStaffName());
+			pst.setString(5, (t.isGender()) ? "Nam" : "Nữ");
+			pst.setString(6, t.getDateOfBirth() + "");
+			pst.setString(7, t.getAddress());
+			pst.setString(8, t.getEmail());
+			pst.setDouble(9, t.getSalary());
+			pst.setString(10, t.getPhone());
+			pst.setString(11, t.getPosition());
+			pst.setString(12, t.getNote());
 
 			ketQua = pst.executeUpdate();
 			c.close();
@@ -54,7 +56,7 @@ public class StaffDAO implements InterfaceDAO<Staff> {
 		try {
 			Connection c = ConnectDatabase.getConnection();
 
-			String sql = "UPDATE Staff SET staff_Name =?, staff_Gender=?, staff_DateOfBirth=?, staff_Adsress=?, staff_Email=?, staff_Salary=?, staffPhone=?, staffPosition=?, staff_Note=? WHERE staff_ID =?";
+			String sql = "UPDATE Staff SET staff_Name =?, staff_Gender=?, staff_DateOfBirth=?, staff_Address=?, staff_Email=?, staff_Salary=?, staff_Phone=?, staff_Position=?, staff_Note=? WHERE staff_ID =?";
 
 			PreparedStatement pst = c.prepareStatement(sql);
 

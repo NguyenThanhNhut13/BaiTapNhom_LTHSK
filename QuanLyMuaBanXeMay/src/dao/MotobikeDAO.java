@@ -96,7 +96,7 @@ public class MotobikeDAO {
 			try {
 				stmt = con.prepareStatement("update Motobike set motobike_Name = ?, "
 						+ "motobike_Manufacturer= ?, motobike_Capacity = ?, motobike_Color = ?,"
-						+ "mType_ID = ?, motobike_Price = ?, motobike_Quantity = ?, motobike_ManufacturingYear = ? where motobike_ID = ?");
+						+ "mType_ID = ?, motobike_Price = ?, motobike_Quantity = ?, motobike_ManufacturingYear = ? where motobike_ID = N'"+ma+"'");
 				stmt.setString(1, xe.getName());
 				stmt.setString(2, xe.getManufacturer());
 				stmt.setFloat(3, xe.getCapacity());
@@ -105,7 +105,6 @@ public class MotobikeDAO {
 				stmt.setDouble(6, xe.getPrice());
 				stmt.setInt(7, xe.getQuantity());
 				stmt.setInt(8, xe.getYear());
-				stmt.setString(9, ma);
 				n = stmt.executeUpdate();
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -116,7 +115,6 @@ public class MotobikeDAO {
 					// TODO: handle exception
 					e2.printStackTrace();
 				}}
-			con.close();
 			return n > 0;
 			}
 	

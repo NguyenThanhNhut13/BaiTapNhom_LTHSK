@@ -29,7 +29,7 @@ public class Regex {
 		String regex = "^[1-9]+[0-9]{7}+[0-9]*$";
 		if (!input.matches(regex)) {
 			JOptionPane.showMessageDialog(null,
-					"Gia xe phai lon hon 10 triệu ", "THONG BAO",
+					"Gia xe phai tu 10 triệu ", "THONG BAO",
 					JOptionPane.ERROR_MESSAGE);
 			textField_gia.requestFocus();
 			textField_gia.selectAll();

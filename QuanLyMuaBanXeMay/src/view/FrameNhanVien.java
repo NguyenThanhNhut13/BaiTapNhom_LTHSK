@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -36,6 +38,9 @@ import entity.Staff;
 import java.awt.Color;
 import javax.swing.ScrollPaneConstants;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class FrameNhanVien extends JPanel {
 	private ArrayList<Staff> listStaff;
 	private JTextField textField_maNhanVien;
@@ -54,7 +59,7 @@ public class FrameNhanVien extends JPanel {
 	private JButton btn_timKiemNhanVien;
 	private JButton btn_xoaNhanVien;
 	private JButton btn_capNhatNhanVien;
-	private JButton btn_xoaTrang;
+	private JButton btn_lamMoi;
 	private JButton btn_themNhanVien;
 
 	/**
@@ -123,6 +128,7 @@ public class FrameNhanVien extends JPanel {
 		comboBox_gioiTinhNhanVien = new JComboBox();
 		comboBox_gioiTinhNhanVien.setFont(new Font("Dialog", Font.BOLD, 12));
 		comboBox_gioiTinhNhanVien.setBounds(495, 17, 111, 22);
+		comboBox_gioiTinhNhanVien.addItem("");
 		comboBox_gioiTinhNhanVien.addItem("Nam");
 		comboBox_gioiTinhNhanVien.addItem("Nữ");
 		panel_ThongTinNhanVien.add(comboBox_gioiTinhNhanVien);
@@ -176,6 +182,7 @@ public class FrameNhanVien extends JPanel {
 
 		comboBox_chucVu = new JComboBox();
 		comboBox_chucVu.setFont(new Font("Dialog", Font.BOLD, 12));
+		comboBox_chucVu.addItem("");
 		comboBox_chucVu.addItem("Chủ tịch");
 		comboBox_chucVu.addItem("Giám đốc");
 		comboBox_chucVu.addItem("Phó Giám đốc");
@@ -197,7 +204,11 @@ public class FrameNhanVien extends JPanel {
 			}
 		};
 		table_nhanVien = new JTable(model_nhanVien);
-		table_nhanVien.addMouseListener(action);
+		table_nhanVien.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				thucHienMouseClick();
+			}
+		});
 		model_nhanVien.addColumn("Mã nhân viên");
 		model_nhanVien.addColumn("Họ tên");
 		model_nhanVien.addColumn("Giới tính");
@@ -221,9 +232,17 @@ public class FrameNhanVien extends JPanel {
 		textField_timKiemNhanVien.setFont(new Font("Arial", Font.PLAIN, 11));
 		textField_timKiemNhanVien.setColumns(10);
 		textField_timKiemNhanVien.setBounds(147, 474, 146, 20);
+		textField_timKiemNhanVien.setText("Tìm theo mã hoặc theo tên");
 		add(textField_timKiemNhanVien);
 
 		btn_timKiemNhanVien = new JButton("Tìm");
+		btn_timKiemNhanVien.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thucHienTim();
+			}
+		});
 		btn_timKiemNhanVien.addActionListener(action);
 		btn_timKiemNhanVien.setForeground(Color.WHITE);
 		btn_timKiemNhanVien.setBackground(Color.BLUE);
@@ -232,6 +251,14 @@ public class FrameNhanVien extends JPanel {
 		add(btn_timKiemNhanVien);
 
 		btn_themNhanVien = new JButton("Thêm");
+		btn_themNhanVien.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thucHienThem();
+			}
+		});
+
 		btn_themNhanVien.addActionListener(action);
 		btn_themNhanVien.setBackground(Color.GREEN);
 		btn_themNhanVien.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -239,6 +266,13 @@ public class FrameNhanVien extends JPanel {
 		add(btn_themNhanVien);
 
 		btn_xoaNhanVien = new JButton("Xóa");
+		btn_xoaNhanVien.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thucHienXoa();
+			}
+		});
 		btn_xoaNhanVien.addActionListener(action);
 		btn_xoaNhanVien.setBackground(Color.RED);
 		btn_xoaNhanVien.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -246,18 +280,32 @@ public class FrameNhanVien extends JPanel {
 		add(btn_xoaNhanVien);
 
 		btn_capNhatNhanVien = new JButton("Cập Nhật");
+		btn_capNhatNhanVien.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thucHienCapNhat();
+			}
+		});
 		btn_capNhatNhanVien.addActionListener(action);
 		btn_capNhatNhanVien.setBackground(Color.YELLOW);
 		btn_capNhatNhanVien.setFont(new Font("Arial", Font.PLAIN, 11));
 		btn_capNhatNhanVien.setBounds(607, 473, 81, 23);
 		add(btn_capNhatNhanVien);
 
-		btn_xoaTrang = new JButton("Xóa trắng");
-		btn_xoaTrang.addActionListener(action);
-		btn_xoaTrang.setBackground(Color.BLUE);
-		btn_xoaTrang.setFont(new Font("Arial", Font.PLAIN, 11));
-		btn_xoaTrang.setBounds(697, 473, 83, 23);
-		add(btn_xoaTrang);
+		btn_lamMoi = new JButton("Làm mới");
+		btn_lamMoi.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thucHienLamMoi();
+			}
+		});
+		btn_lamMoi.addActionListener(action);
+		btn_lamMoi.setBackground(Color.BLUE);
+		btn_lamMoi.setFont(new Font("Arial", Font.PLAIN, 11));
+		btn_lamMoi.setBounds(697, 473, 83, 23);
+		add(btn_lamMoi);
 
 	}
 
@@ -303,12 +351,12 @@ public class FrameNhanVien extends JPanel {
 		this.btn_capNhatNhanVien = btn_capNhatNhanVien;
 	}
 
-	public JButton getBtn_luu() {
-		return btn_xoaTrang;
+	public JButton getBtn_lamMoi() {
+		return btn_lamMoi;
 	}
 
-	public void setBtn_luu(JButton btn_luu) {
-		this.btn_xoaTrang = btn_luu;
+	public void setBtn_lamMoi(JButton btn_lamMoi) {
+		this.btn_lamMoi = btn_lamMoi;
 	}
 
 	public JButton getBtn_themNhanVien() {
@@ -322,10 +370,7 @@ public class FrameNhanVien extends JPanel {
 	public void loadData() {
 		listStaff = StaffDAO.getInstance().selectAll();
 		for (Staff staff : listStaff) {
-			String data[] = { staff.getStaffID(), staff.getStaffName(), (staff.isGender()) ? "Nam" : "Nữ",
-					staff.getDateOfBirth() + "", staff.getAddress(), staff.getEmail(), staff.getPhone(),
-					staff.getPosition(), nf.format(staff.getSalary()) + "", staff.getNote() };
-			model_nhanVien.addRow(data);
+			addRowTable(staff);
 		}
 	}
 
@@ -382,16 +427,13 @@ public class FrameNhanVien extends JPanel {
 	public void addDataToTable() {
 		model_nhanVien.setRowCount(0);
 		for (Staff staff : listStaff) {
-			String data[] = { staff.getStaffID(), staff.getStaffName(), (staff.isGender()) ? "Nam" : "Nữ",
-					staff.getDateOfBirth() + "", staff.getAddress(), staff.getEmail(), staff.getPhone(),
-					staff.getPosition(), nf.format(staff.getSalary()) + "", staff.getNote() };
-			model_nhanVien.addRow(data);
+			addRowTable(staff);
 		}
 	}
 
 	private boolean kiemTraTrungMa() {
 		for (Staff staff : listStaff) {
-			if(staff.getStaffID().equals(textField_maNhanVien.getText())){
+			if (staff.getStaffID().equals(textField_maNhanVien.getText())) {
 				return false;
 			}
 		}
@@ -436,15 +478,21 @@ public class FrameNhanVien extends JPanel {
 
 	public void thucHienXoa() {
 		int row = table_nhanVien.getSelectedRow();
-		if(row < 0) {
+		if (row < 0) {
 			JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa");
 			return;
-		}else {
+		} else {
 			if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này không") == JOptionPane.YES_OPTION) {
-				Staff staff = listStaff.get(row);
-				listStaff.remove(row);
+				Staff staff = null;
+				for (Staff st : listStaff) {
+					if (st.getStaffID().equals(model_nhanVien.getValueAt(row, 0))) {
+						staff = st;
+					}
+				}
+				listStaff.remove(staff);
 				StaffDAO.getInstance().delete(staff);
 				addDataToTable();
+				thucHienLamMoi();
 				JOptionPane.showMessageDialog(this, "Đã xóa thành công");
 			}
 		}
@@ -452,11 +500,12 @@ public class FrameNhanVien extends JPanel {
 
 	public void thucHienCapNhat() {
 		int row = table_nhanVien.getSelectedRow();
-		if(row < 0) {
+		if (row < 0) {
 			JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần cập nhật!");
 			return;
-		}else {
-			if(JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật dòng này không!") == JOptionPane.YES_OPTION) {
+		} else {
+			if (JOptionPane.showConfirmDialog(this,
+					"Bạn có chắc chắn muốn cập nhật dòng này không!") == JOptionPane.YES_OPTION) {
 				String maNhanVien = textField_maNhanVien.getText();
 				String tenNhanVien = textField_tenNhanVien.getText();
 				boolean gioiTinh = (comboBox_gioiTinhNhanVien.getSelectedItem().equals("Nam"));
@@ -471,10 +520,55 @@ public class FrameNhanVien extends JPanel {
 
 				Staff staff = new Staff(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, diaChi, email, tienLuong, sdt,
 						chucVu, ghiChu);
-				
-				listStaff.remove()
+
+				listStaff.set(row, staff);
+				addDataToTable();
+				StaffDAO.getInstance().update(staff);
+				JOptionPane.showMessageDialog(this, "Bạn đã cập nhật thành công!");
 			}
 		}
+	}
+
+	public void thucHienLamMoi() {
+		textField_maNhanVien.setText("");
+		textField_tenNhanVien.setText("");
+		comboBox_gioiTinhNhanVien.setSelectedItem("");
+		dateChooser_ngaySinh.setDate(null);
+		textField_diaChiNhanVien.setText("");
+		textField_emailNhanVien.setText("");
+		textField_soDienThoaiNhanVien.setText("");
+		comboBox_chucVu.setSelectedItem("");
+		textField_luong.setText("");
+		textField_ghiChu.setText("");
+		addDataToTable();
+	}
+
+	public void thucHienTim() {
+		if (textField_timKiemNhanVien.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm!");
+			return;
+		} else {
+			int ketQua = 0;
+			String timKiem = textField_timKiemNhanVien.getText();
+			model_nhanVien.setRowCount(0);
+			for (Staff staff : listStaff) {
+				if (staff.getStaffID().equals(timKiem) || staff.getStaffName().equals(timKiem)) {
+					addRowTable(staff);
+					ketQua++;
+				}
+			}
+			if (ketQua == 0) {
+				JOptionPane.showMessageDialog(this, "Không tìm thấy!");
+				addDataToTable();
+			}
+		}
+	}
+
+	public void addRowTable(Staff staff) {
+		String data[] = { staff.getStaffID(), staff.getStaffName(), (staff.isGender()) ? "Nam" : "Nữ",
+				staff.getDateOfBirth() + "", staff.getAddress(), staff.getEmail(), staff.getPhone(),
+				staff.getPosition(), nf.format(staff.getSalary()) + "", staff.getNote() };
+		model_nhanVien.addRow(data);
 	}
 
 }

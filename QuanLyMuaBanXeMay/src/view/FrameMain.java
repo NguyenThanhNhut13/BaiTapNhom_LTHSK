@@ -34,6 +34,7 @@ public class FrameMain extends JFrame {
 	public JPanel panel_chucNang;
 	public JTabbedPane tabbedPane_chucNang;
 	private FrameNhanVien frameNhanVien;
+	private FrameKhachHang frameKhachHang;
 	
 	public FrameMain() throws Exception {
 		getContentPane().setBackground(SystemColor.window);
@@ -130,7 +131,7 @@ public class FrameMain extends JFrame {
 		frameNhanVien = new FrameNhanVien();
 		frameNhanVien.setBackground(SystemColor.window);
 		tabbedPane_chucNang.add("Nhân viên", frameNhanVien);
-		FrameKhachHang frameKhachHang = new FrameKhachHang();
+		frameKhachHang = new FrameKhachHang();
 		frameKhachHang.setBackground(SystemColor.window);
 		tabbedPane_chucNang.add("Khách hàng", frameKhachHang);
 		tabbedPane_chucNang.add("Thông tin", new FrameAbout());
@@ -155,6 +156,7 @@ public class FrameMain extends JFrame {
 
 	public void loadData() {
 		frameNhanVien.loadData();
+		frameKhachHang.loadData();
 	}
 
 	public void chuyenTab(String cm) {
