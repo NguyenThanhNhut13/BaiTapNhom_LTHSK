@@ -7,8 +7,8 @@ import view.FrameDangNhap;
 import view.FrameMain;
 
 public class test {
-	public static void main(String[] args) {
-//		new FrameDangNhap();
+	public static void main(String[] args) throws Exception {
+		new FrameDangNhap();
 //		try {
 //			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 //		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -16,6 +16,5 @@ public class test {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		new FrameMain();
 	}
 }

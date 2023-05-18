@@ -6,7 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.Controller;
+import dao.StaffDAO;
+import entity.Staff;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,14 +21,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 
-public class FrameDangNhap extends JFrame {
+public class FrameDangNhap extends JFrame implements ActionListener {
 	public JTextField textField_taiKhoan;
 	public FrameMain frameMain;
 	private JPasswordField passwordField_matKhau;
+	private Staff user;
 
 	public FrameDangNhap() {
 		getContentPane().setFont(new Font("Arial", Font.BOLD, 11));
-		frameMain = new FrameMain();
 		this.init();
 	}
 
@@ -54,8 +55,6 @@ public class FrameDangNhap extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		Controller action = new Controller(this);
-		
 		JLabel jlabel_dangNhap = new JLabel("Đăng Nhập");
 		jlabel_dangNhap.setHorizontalAlignment(SwingConstants.CENTER);
 		jlabel_dangNhap.setFont(new Font("Arial", Font.BOLD, 20));
@@ -80,13 +79,11 @@ public class FrameDangNhap extends JFrame {
 		getContentPane().add(lbl_matKhau);
 
 		JButton btn_dangNhap = new JButton("Đăng Nhập");
-		btn_dangNhap.addActionListener(action);
 		btn_dangNhap.setFont(new Font("Arial", Font.BOLD, 14));
 		btn_dangNhap.setBounds(52, 195, 115, 27);
 		getContentPane().add(btn_dangNhap);
 
 		JButton btn_thoat = new JButton("Thoát");
-		btn_thoat.addActionListener(action);
 		btn_thoat.setFont(new Font("Arial", Font.BOLD, 14));
 		btn_thoat.setBounds(219, 195, 115, 27);
 		getContentPane().add(btn_thoat);
@@ -94,6 +91,8 @@ public class FrameDangNhap extends JFrame {
 		passwordField_matKhau = new JPasswordField();
 		passwordField_matKhau.setBounds(107, 110, 219, 20);
 		getContentPane().add(passwordField_matKhau);
+		btn_dangNhap.addActionListener(this);
+		btn_thoat.addActionListener(this);
 		this.setVisible(true);
 	}
 
@@ -101,19 +100,53 @@ public class FrameDangNhap extends JFrame {
 		System.exit(0);
 	}
 
-	public void kiemTraDangNhap() {
+	public void thucHienDangNhap() {
 		char[] pass = passwordField_matKhau.getPassword();
 		String password = new String(pass);
-		if (textField_taiKhoan.getText().equals("sa") && password.equals("123456789")) {
-			JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-			this.setVisible(false);
-			frameMain.setVisible(true);
-		} else if (textField_taiKhoan.getText().equals("") || password.equals("")) {
-			JOptionPane.showMessageDialog(this, "Bạn chưa nhập thông tin!");
+		if (textField_taiKhoan.getText().equals("") && password.equals("")) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+			return;
+		}else if (textField_taiKhoan.getText().equals("") ) {
+			JOptionPane.showMessageDialog(this, "Tên tài khoản không được bỏ trống!");
+			textField_taiKhoan.requestFocus();
+			return;
+		}else if (password.equals("") ) {
+			JOptionPane.showMessageDialog(this, "Mật khẩu không được bỏ trống!");
+			passwordField_matKhau.requestFocus();
 			return;
 		} else {
-			JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác!");
-			return;
+			if (kiemTraDangNhap()) {
+				JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+				this.setVisible(false);
+				frameMain = new FrameMain(user, this);
+				frameMain.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác!");
+				return;
+			}
 		}
+	}
+
+	private boolean kiemTraDangNhap() {
+		char[] pass = passwordField_matKhau.getPassword();
+		String password = new String(pass);
+		for (Staff staff : StaffDAO.getInstance().selectAll()) {
+			if (textField_taiKhoan.getText().equals(staff.getStaffID()) && password.equals("123456789")) {
+				user = staff;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cm = e.getActionCommand();
+		if (cm.equals("Đăng Nhập")) {
+			thucHienDangNhap();
+		} else if (cm.equals("Thoát")) {
+			thucHienThoat();
+		}
+
 	}
 }

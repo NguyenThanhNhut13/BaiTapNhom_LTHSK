@@ -1,10 +1,16 @@
 eclipse.preferences.version=1
-encoding//src/controller/Controller.java=UTF-8
+encoding//src/dao/ChiTietHDDAO.java=UTF-8
+encoding//src/dao/CustomersDAO.java=UTF-8
+encoding//src/dao/MotoTypeDAO.java=UTF-8
+encoding//src/dao/Regex.java=UTF-8
+encoding//src/dao/StaffDAO.java=UTF-8
+encoding//src/entity/Staff.java=UTF-8
 encoding//src/view/FrameAbout.java=UTF-8
 encoding//src/view/FrameBanHang.java=UTF-8
 encoding//src/view/FrameChiTietDonHang.java=UTF-8
 encoding//src/view/FrameDangNhap.java=UTF-8
 encoding//src/view/FrameDonHang.java=UTF-8
+encoding//src/view/FrameHoaDon.java=UTF-8
 encoding//src/view/FrameKhachHang.java=UTF-8
 encoding//src/view/FrameMain.java=UTF-8
 encoding//src/view/FrameNhanVien.java=UTF-8
